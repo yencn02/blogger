@@ -1,0 +1,12 @@
+var content = null;
+<% unless @article %>
+  content = "Sorry, we couldn't find the article you were looking for";
+<% else %>
+  var utm_content = document.URL;
+  var utm_source = window.location.hostname;
+
+  var utm = "?utm_source= "+ utm_source +"&utm_content=" + utm_content + "&utm_campaign=website&utm_medium=article";
+  content = '<iframe id="article_<%= @article.id %>" src="<%= show_embed_article_path :only_path => false %>'+ utm +'" frameborder="0" scrolling="yes" width="500" height="200"></iframe>';
+<% end %>
+
+document.write(content);

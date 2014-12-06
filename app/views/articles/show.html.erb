@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @article.content %>
+</p>
+
+<div>
+  <h3>Embed Article in Your Blog</h3>
+  To share this article on your blog, just copy and paste the script below on your blog post<br/>
+  <textarea cols="37" rows="3" onclick="this.select()"><%= javascript_include_tag url_for(:controller => 'articles', :action => :embed, :id => @article.id, :format => 'js', :only_path => false) %></textarea>
+</div>
+
+<div>
+  <h3>List of Blog Pages include this article</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Host Name</th>
+        <th>Host Url</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @article.blog_pages.each do |bp| %>
+        <tr>
+          <td><%= link_to bp.host_name, bp.host_name %></td>
+          <td><%= link_to bp.host_url, bp.host_url %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<%= link_to 'Edit', edit_article_path(@article) %> |
+<%= link_to 'Back', articles_path %>
